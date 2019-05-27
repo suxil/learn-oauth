@@ -1,0 +1,33 @@
+server:
+  port: 10202
+  servlet:
+    context-path: /client2
+#    session:
+#      cookie:
+#        name: CLIENT2-SESSION
+  use-forward-headers: true
+spring:
+  resources:
+    static-locations: classpath:/css
+  mvc:
+    static-path-pattern: /css/**
+  thymeleaf:
+    # For dev-time hot reloading of templates. Should be disabled in production
+    cache: false
+
+security:
+  oauth2:
+    client:
+      client-id: clientId
+      client-secret: secret
+      access-token-uri: http://localhost:10101/auth/oauth/token
+      user-authorization-uri: http://localhost:10101/auth/oauth/authorize
+      scope: read,write
+#      use-current-uri: false
+#      pre-established-redirect-uri: http://localhost:10202/client2/login
+    resource:
+      token-info-uri: http://localhost:10101/auth/oauth/check_token
+      user-info-uri: http://localhost:10101/auth/me
+#      prefer-token-info: false
+#    authorization:
+#      check-token-access: http://localhost:10101/oauth/check_token
