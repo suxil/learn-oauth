@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("login", "/oauth/*").permitAll()
+                .antMatchers("/webjars/**", "/css/**", "login", "/oauth/*").permitAll()
                 .anyRequest().authenticated()
 
                 .and()
@@ -76,6 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 if (user instanceof GlobalUser) {
                     GlobalUser globalUser = (GlobalUser) user;
                     CharSequence rawPassword = (CharSequence) authentication.getPrincipal();
+                    System.out.println("忘记密码，请修改成需要的密码，然后将生成的字符串更新到密码字段：" + passwordEncoder().encode("admin"));
                     if (StringUtils.hasLength(rawPassword) && passwordEncoder().matches(rawPassword, globalUser.getPassword())) {
                         String userInfoJson = JsonUtils.toJson(globalUser.getExtendAttr());
                         // 认证成功

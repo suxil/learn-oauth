@@ -15,7 +15,7 @@ public class ClientSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic().disable()
 
                 .authorizeRequests()
-                .antMatchers("/", "/login").permitAll()
+                .antMatchers("/webjars/**", "/css/**", "/", "/login").permitAll()
                 .anyRequest().authenticated();
     }
 
